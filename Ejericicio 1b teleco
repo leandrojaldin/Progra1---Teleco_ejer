@@ -1,0 +1,45 @@
+#include <iostream>
+#include <chrono> // Corregido: <chrono> en lugar de <chronos>
+using namespace std;
+
+// Arreglo global de precios
+double PrecioMinLlamada[5]; // puedes ampliarlo hasta 10 si lo deseas
+
+// Prototipos
+void CargarPlan();
+void imprimirPlan();
+
+int main() {
+    // Medición del tiempo usando chrono
+    auto inicio = chrono::high_resolution_clock::now();
+    CargarPlan();
+    auto medio = chrono::high_resolution_clock::now();
+    imprimirPlan();
+    auto fin = chrono::high_resolution_clock::now();
+
+    // Cálculo de duración
+    auto duracion1 = chrono::duration_cast<chrono::microseconds>(medio - inicio);
+    auto duracion2 = chrono::duration_cast<chrono::microseconds>(fin - medio);
+
+    // Mostrar tiempos
+    cout << "Tiempo de Carga de Planes: " << duracion1.count() << " microsegundos" << endl;
+    cout << "Tiempo de Impresion de Planes: " << duracion2.count() << " microsegundos" << endl;
+
+    return 0;
+}
+
+// Cargar precios en el arreglo
+void CargarPlan() {
+    PrecioMinLlamada[0] = 0.2;
+    PrecioMinLlamada[1] = 0.5;
+    PrecioMinLlamada[2] = 0.7;
+    PrecioMinLlamada[3] = 1.0; // corregido
+    PrecioMinLlamada[4] = 1.2;
+}
+
+// Imprimir los precios de los planes
+void imprimirPlan() {
+    for (int i = 0; i < 5; i++) {
+        cout << "Plan [" << i << "]: " << PrecioMinLlamada[i] << " Bs/min" << endl;
+    }
+}
