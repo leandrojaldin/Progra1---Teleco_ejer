@@ -1,34 +1,35 @@
 #include <iostream>
 #include <string>
-#include <vector>
 #include <chrono>
+using namespace std;
 
-std::vector<std::string> estados; // Vector simple para guardar los dos estados
+// Arreglo para guardar los dos estados
+string estados[2];
 
 void rellenar_estado() {
-    estados.push_back("Pendiente");
-    estados.push_back("Pagado");
+    estados[0] = "Pendiente";
+    estados[1] = "Pagado";
 }
 
 void imprimir_Nombre_estado() {
-    for (const auto& estado : estados) {
-        std::cout << "Estado: " << estado << std::endl;
+    for (int i = 0; i < 2; i++) {
+        cout << "Estado: " << estados[i] << endl;
     }
 }
 
 int main() {
-    std::cout << "Ejercicio 1 inciso a" << std::endl;
+    cout << "Ejercicio 1 inciso a" << endl;
 
-    rellenar_estado(); // Cargar los estados (no medimos esto)
+    rellenar_estado(); // Cargar los estados
 
-    auto inicio = std::chrono::high_resolution_clock::now(); // Inicio medición
+    auto inicio = chrono::high_resolution_clock::now(); // Inicio medición
     imprimir_Nombre_estado();
-    auto fin = std::chrono::high_resolution_clock::now();    // Fin medición
+    auto fin = chrono::high_resolution_clock::now();    // Fin medición
 
-    auto duracion = std::chrono::duration_cast<std::chrono::microseconds>(fin - inicio);
+    auto duracion = chrono::duration_cast<chrono::microseconds>(fin - inicio);
     
-    std::cout << "Tiempo de impresión de estados: "
-              << duracion.count() << " microsegundos" << std::endl;
+    cout << "Tiempo de impresión de estados: "
+         << duracion.count() << " microsegundos" << endl;
 
     return 0;
 }
