@@ -1,0 +1,81 @@
+#include <iostream>
+#include <string>
+#include <chrono>
+#include <random>
+
+using namespace std;
+
+// Arreglos de nombres, apellidos y países
+string nombres[200] = {"Adrián", "Alejandro", "Amalia", "Ana", "Arturo", "Aurora", "Beatriz", "Bernardo", "Berta", "Blanca",
+    "Boris", "Braulio", "Camila", "Carlos", "Carmen", "Carolina", "Cayetano", "César", "Claudia", "Cristian",
+    "Damian", "Dana", "Daniel", "Daniela", "Darla", "David", "Denis", "Diego", "Dora", "Duvan", "Dylan", "Eduardo",
+    "Elvio", "Elvira", "Emanuel", "Emilia", "Emilio", "Enrique", "Enriqueta", "Erlan", "Esmeralda", "Esperanza",
+    "Estefania", "Estela", "Gabriel", "Jacinta", "Jairo", "Javier", "Jimena", "Joaquín", "Jordana", "José", "Juan",
+    "Julián", "Julieta", "Karen", "Katerina", "Kevin", "Kiara", "Kimberly", "Konstantin", "Laura", "Leandro",
+    "Leonardo", "Lucía", "Luis", "Luna", "Magdalena", "Manuel", "Manuela", "Marcela", "Marcelo", "Marcos", "María",
+    "Marina", "Mario", "Marta", "Martín", "Mateo", "Matías", "Mauricio", "Maximiliano", "Melisa", "Mercedes",
+    "Miguel", "Moisés", "Montserrat", "Nadia", "Nahuel", "Nala", "Nancy", "Naomi", "Napoleón", "Natalia", "Nayeli",
+    "Nelson", "Nerea", "Néstor", "Nicanor", "Nicolás", "Nieves", "Ninfa", "Noah", "Noel", "Noemí", "Nora", "Nuria",
+    "Octavia", "Octavio", "Odalys", "Odette", "Ofelia", "Olga", "Olimpia", "Olivia", "Omar", "Omero", "Ona", "Opal",
+    "Oprah", "Orestes", "Oriana", "Oriel", "Orlando", "Oscar", "Osvaldo", "Otto", "Pablo", "Paola", "Patricia",
+    "Paula", "Paulina", "Pedro", "Pilar", "Quentin", "Querubín", "Quetzalí", "Quico", "Quim", "Quintín", "Quirino",
+    "Ramírez", "Ramón", "Ramos", "Raquel", "Raúl", "Rebeca", "Reyes", "Ricardo", "Ríos", "Rivera", "Roberta",
+    "Roberto", "Rocío", "Rodríguez", "Rojas", "Rosa", "Rubén", "Ruiz", "Salazar", "Salinas", "Salvador", "Sánchez",
+    "Santana", "Santiago", "Santos", "Sara", "Sebastián", "Sergio", "Serrano", "Sofía", "Sonia", "Soto", "Suárez",
+    "Susana", "Tadeo", "Tania", "Teodoro", "Teresa", "Timoteo", "Tina", "Tita", "Tomás", "Ulises", "Unai", "Uriel",
+    "Valentina", "Valeria", "Vicente", "Victor", "Viviana", "Walter", "Wilfredo", "William", "Xavier", "Ximena",
+    "Xiomara", "Yuri", "Zenon", "Zuleyka"};
+
+string NombreCliente[10000];
+
+//atriz bidimensional para guardar Sexo, AñoNac, IdPais
+string mat[10000][3];
+
+void rellenar_DetalleCliente() {
+    srand(time(NULL)); // Semilla para números aleatorios distintos
+
+    for (int i = 0; i < 10000; i++) {
+        int sexo = rand() % 2;
+        if (sexo == 0)
+            mat[i][0] = "M";
+        else
+            mat[i][0] = "F";
+
+        int anio = rand() % 83 + 1943; // Entre 1943 y 2025
+        int idPais = rand() % 195;     // Índices de países
+
+        mat[i][1] = to_string(anio);
+        mat[i][2] = to_string(idPais);
+    }
+}
+
+// Imprimir: IdCliente, Sexo, AñoNac, IdPais (sin nombres)
+void imprimir_DetalleCliente() {
+    cout << "IdCli\tSexo\tAñoNac\tIdPais\n";
+    for (int i = 0; i < 10000; i++) {
+        cout << i << "\t\t\t"
+             << mat[i][0] << "\t"
+             << mat[i][1] << "\t"
+             << mat[i][2] << "\n";
+    }
+}
+
+int main() {
+    cout << "Ejercicio 2: Creación de matriz de detalles\n";
+
+    auto inicio = chrono::high_resolution_clock::now();
+    rellenar_DetalleCliente();
+    auto medio = chrono::high_resolution_clock::now();
+    imprimir_DetalleCliente();
+    auto fin = chrono::high_resolution_clock::now();
+
+    auto duracion1 = chrono::duration_cast<chrono::microseconds>(medio - inicio);
+    auto duracion2 = chrono::duration_cast<chrono::microseconds>(fin - medio);
+
+    cout << "Tiempo de generación de nombres y detalles: "
+         << duracion1.count() << " microsegundos\n";
+    cout << "Tiempo de impresión: "
+         << duracion2.count() << " microsegundos\n";
+
+    return 0;
+}
